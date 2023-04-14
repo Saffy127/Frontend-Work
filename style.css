@@ -1,0 +1,90 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #4CAF50;
+  }
+  
+  nav .logo {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  nav .menu {
+    display: flex;
+    list-style-type: none;
+  }
+  
+  nav .menu li {
+    margin-left: 20px;
+  }
+  
+  nav .menu li a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .hero {
+    text-align: center;
+    padding: 100px 0;
+    color: #fff;
+  }
+  
+  .features,
+  .pricing,
+  .contact {
+    padding: 40px;
+    margin: 20px 0;
+  }
+  
+  .plans {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .plan {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 5px;
+    width: 30%;
+    text-align: center;
+  }
+  
+  .plan h3 {
+    margin-bottom: 10px;
+  }
+  
+  .plan .price {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .plan ul {
+    list-style-type: none;
+    margin-bottom: 20px;
+  }
+  
+  .contact form {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .contact form label {
+    margin-bottom: 5px;
+  }
+  
+  .contact form input,
+  .contact form textarea {
+    margin-bottom: 15px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .contact form textarea {
+    resize: none;
+    height: 100px;
+  }
+  
