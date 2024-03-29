@@ -1,0 +1,14 @@
+version: '3'
+services:
+  mynodeapp:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+  nginx:
+    build: ./nginx
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mynodeapp
