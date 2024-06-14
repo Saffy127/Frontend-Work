@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Glitch Art with TensorFlow.js</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Glitch Art Generator</h1>
+      <input type="file" id="upload" accept="image/*" />
+      <button id="apply-glitch" disabled>Apply Glitch</button>
+      <div id="loading" class="hidden">Applying glitch effect...</div>
+      <canvas id="canvas"></canvas>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
