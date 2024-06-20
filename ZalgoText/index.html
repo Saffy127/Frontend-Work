@@ -2,38 +2,28 @@
 <html>
 
 <head>
-  <title>Zalgo Text Generator</title>
+  <title>Zalgo Text Generator V2</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <div class="container">
-    <h1>Zalgo Text Generator</h1>
-    <textarea id="normalText" placeholder="Enter your text here"></textarea>
-    <div>
-      <label for="zalgoSlider">Intensity:</label>
-      <input type="range" id="zalgoSlider" min="0" max="100" value="50">
-    </div>
-    <div>
-      <label for="fontSelect">Font:</label>
-      <select id="fontSelect">
-        <option value="Arial">Arial</option>
-        <option value="Courier New">Courier New</option>
-        <option value="Times New Roman">Times New Roman</option>
-        <option value="Comic Sans MS">Comic Sans MS</option>
-      </select>
-    </div>
-    <div>
-      <label for="textColor">Text Color:</label>
-      <input type="color" id="textColor" value="#ffffff">
-      <label for="bgColor">Background Color:</label>
-      <input type="color" id="bgColor" value="#121212">
-    </div>
-    <p id="zalgoText"></p>
-    <div class="buttons">
-      <button id="copyButton">Copy to Clipboard</button>
-      <button id="downloadButton">Download as File</button>
-    </div>
+  <div class="overlay">
+    <header>
+      <h1>Zalgo Text Generator</h1>
+      <p>Generat glitchy text for your projects</p>
+    </header>
+    <main>
+      <textarea id="normalText" placeholder="Enter your text here"></textarea>
+      <div class="slider-container">
+        <label for="zalgoSlider">Intensity:</label>
+        <input type="range" id="zalgoSlider" min="0" max="100" value="50">
+      </div>
+      <div id="zalgoText" class="zalgo-output"></div>
+      <div class="buttons">
+        <button id="copyButton">Copy to Clipboard</button>
+        <button id="downloadButton">Download as File</button>
+      </div>
+    </main>
   </div>
   <script src="script.js"></script>
 </body>
