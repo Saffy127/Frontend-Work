@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown to Structured Plain Text PDF Converter</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.3.2/markdown-it.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+            background-color: #f0f0f0;
+        }
+
+        textarea,
+        #preview {
+            width: 100%;
+            height: 300px;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #preview {
+            background-color: white;
+            overflow-y: auto;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #message {
+            margin-top: 10px;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Markdown to Structured Plain Text PDF Converter</h1>
+    <textarea id="markdown" placeholder="Enter your Markdown here..."></textarea>
+    <button onclick="updatePreview()">Preview</button>
+    <div id="preview"></div>
+    <input type="text" id="filename" placeholder="Enter file name (without extension)">
+    <button onclick="convertToPDF()">Convert to PDF</button>
+    <div id="message"></div>
+
+    <script>
+        const md = window.markdownit();
+        const {jsPDF} = window.jspdf;
+
+        function updatePreview() {
+            const markdown = document.getElementById('markdown').value;
+            const preview = document.getElementById('preview');
+            preview.innerHTML = md.render(markdown);
+        }
+
+        function convertToPDF() {
+            const markdown = document.getElementById('markdown').value;
+            const filenameInput = document.getElementById('filename').value.trim();
+            const filename = filenameInput || 'converted_document';
+
+            if (!markdown.trim()) {
+                showMessage('Please enter some Markdown text before converting.');
+                return;
+            }
+
+            try {
+                const structuredText = convertMarkdownToStructuredText(markdown);
+                const doc = new jsPDF();
+
+                const splitText = doc.splitTextToSize(structuredText, 190);
+                doc.text(splitText, 10, 10);
+
+                doc.save(`${filename}.pdf`);
+                showMessage('PDF created successfully!');
+            } catch (error) {
+                console.error('Conversion error:', error);
+                showMessage('Error creating PDF. Please try again.');
+            }
+        }
+
+        function convertMarkdownToStructuredText(markdown) {
+            const tokens = md.parse(markdown, {});
+            let result = '';
+            let listLevel = 0;
+
+            for (const token of tokens) {
+                switch (token.type) {
+                    case 'heading_open':
+                        const level = parseInt(token.tag.slice(1));
+                        result += '\n' + '#'.repeat(level) + ' ';
+                        break;
+                    case 'paragraph_open':
+                        result += '\n';
+                        break;
+                    case 'bullet_list_open':
+                    case 'ordered_list_open':
+                        listLevel++;
+                        break;
+                    case 'bullet_list_close':
+                    case 'ordered_list_close':
+                        listLevel--;
+                        if (listLevel === 0) result += '\n';
+                        break;
+                    case 'list_item_open':
+                        result += '  '.repeat(listLevel - 1) + '- ';
+                        break;
+                    case 'fence':
+                        result += '\n```\n' + token.content + '```\n';
+                        break;
+                    case 'code_block':
+                        result += '\n```\n' + token.content + '```\n';
+                        break;
+                    case 'table_open':
+                        result += '\n';
+                        break;
+                    case 'tr_open':
+                        result += '| ';
+                        break;
+                    case 'tr_close':
+                        result += '\n';
+                        break;
+                    case 'th_open':
+                    case 'td_open':
+                        // Handled in inline
+                        break;
+                    case 'th_close':
+                    case 'td_close':
+                        result += ' | ';
+                        break;
+                    case 'inline':
+                        result += token.content;
+                        break;
+                    case 'softbreak':
+                        result += '\n';
+                        break;
+                }
+            }
+
+            return result.trim();
+        }
+
+        function showMessage(msg) {
+            const messageElement = document.getElementById('message');
+            messageElement.textContent = msg;
+            setTimeout(() => {
+                messageElement.textContent = '';
+            }, 3000);
+        }
+    </script>
+</body>
+
+</html>
