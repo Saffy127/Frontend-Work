@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap');
+
+:root {
+  --color-metal-black: #0a0a0a;
+  --color-metal-gray: #2a2a2a;
+  --color-metal-silver: #c0c0c0;
+  --color-metal-gold: #ffd700;
+  --color-metal-red: #8b0000;
+  --color-metal-purple: #4B0082;
+}
+
+body {
+  font-family: 'Metal Mania', cursive;
+  background-color: var(--color-metal-black);
+  color: var(--color-metal-silver);
+}
+
+.bg-flame {
+  background-image: url('../assets/images/backgrounds/flame-bg.png');
+  background-size: cover;
+  opacity: 0.2;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -2;
+}
+
+.bg-tribal {
+  background-image: url('../assets/images/backgrounds/tribal-bg.png');
+  background-size: 200%;
+  background-position: center;
+  opacity: 0.1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+.metal-gradient {
+  background: linear-gradient(135deg, var(--color-metal-gray), var(--color-metal-black));
+}
+
+.metal-border {
+  border: 2px solid var(--color-metal-silver);
+  box-shadow: 0 0 10px var(--color-metal-purple), inset 0 0 5px var(--color-metal-purple);
+}
+
+.metal-text-shadow {
+  text-shadow: 2px 2px 4px var(--color-metal-purple);
+}
+
+.metal-button {
+  background: linear-gradient(to bottom, var(--color-metal-purple), var(--color-metal-black));
+  border: 1px solid var(--color-metal-silver);
+  color: var(--color-metal-silver);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.metal-button:hover {
+  background: linear-gradient(to bottom, var(--color-metal-gold), var(--color-metal-red));
+  transform: scale(1.05);
+  box-shadow: 0 0 15px var(--color-metal-gold);
+}
+
+@keyframes slowFlickerAnimation {
+  0%   { opacity:1; }
+  50%  { opacity:0.7; }
+  100% { opacity:1; }
+}
+
+.slow-flicker {
+  animation: slowFlickerAnimation 4s infinite;
+}
